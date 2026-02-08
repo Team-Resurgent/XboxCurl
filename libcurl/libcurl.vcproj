@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="libcurl"
+	ProjectGUID="{C3127A20-19DD-4483-AC21-D35386AC0E7C}"
+	RootNamespace="libcurl"
+	Keyword="XboxProj">
+	<Platforms>
+		<Platform
+			Name="Xbox"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Xbox"
+			OutputDirectory="$(SolutionDir)lib\Debug"
+			IntermediateDirectory="$(SolutionDir)obj\libcurl\Debug"
+			ConfigurationType="4"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				OptimizeForProcessor="2"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)lib&quot;;&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)BearSSL-OG&quot;;&quot;$(SolutionDir)BearSSL-OG\libbearssl\inc&quot;;&quot;$(SolutionDir)BearSSL-OG\missing&quot;"
+				PreprocessorDefinitions="_DEBUG;_XBOX;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP;CURL_DISABLE_LDAPS;CURL_DISABLE_TELNET;CURL_DISABLE_DICT;CURL_DISABLE_TFTP;CURL_DISABLE_RTSP;CURL_DISABLE_POP3;CURL_DISABLE_IMAP;CURL_DISABLE_SMTP;CURL_DISABLE_GOPHER;CURL_DISABLE_SMB;CURL_DISABLE_RTMP;CURL_DISABLE_CRYPTO_AUTH;USE_BEARSSL"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="FALSE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/libcurl.lib"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Xbox"
+			OutputDirectory="$(SolutionDir)lib\Release"
+			IntermediateDirectory="$(SolutionDir)obj\libcurl\Release"
+			ConfigurationType="4"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				OmitFramePointers="TRUE"
+				OptimizeForProcessor="2"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)lib&quot;;&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)BearSSL-OG&quot;;&quot;$(SolutionDir)BearSSL-OG\libbearssl\inc&quot;;&quot;$(SolutionDir)BearSSL-OG\missing&quot;"
+				PreprocessorDefinitions="NDEBUG;_XBOX;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP;CURL_DISABLE_LDAPS;CURL_DISABLE_TELNET;CURL_DISABLE_DICT;CURL_DISABLE_TFTP;CURL_DISABLE_RTSP;CURL_DISABLE_POP3;CURL_DISABLE_IMAP;CURL_DISABLE_SMTP;CURL_DISABLE_GOPHER;CURL_DISABLE_SMB;CURL_DISABLE_RTMP;CURL_DISABLE_CRYPTO_AUTH;USE_BEARSSL"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="FALSE"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/libcurl.lib"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release_LTCG|Xbox"
+			OutputDirectory="$(SolutionDir)lib\Release_LTCG"
+			IntermediateDirectory="$(SolutionDir)obj\libcurl\Release_LTCG"
+			ConfigurationType="4"
+			CharacterSet="2"
+			WholeProgramOptimization="TRUE">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="2"
+				OmitFramePointers="TRUE"
+				OptimizeForProcessor="2"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)lib&quot;;&quot;$(ProjectDir)include&quot;;&quot;$(SolutionDir)BearSSL-OG&quot;;&quot;$(SolutionDir)BearSSL-OG\libbearssl\inc&quot;;&quot;$(SolutionDir)BearSSL-OG\missing&quot;"
+				PreprocessorDefinitions="NDEBUG;_XBOX;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP;CURL_DISABLE_LDAPS;CURL_DISABLE_TELNET;CURL_DISABLE_DICT;CURL_DISABLE_TFTP;CURL_DISABLE_RTSP;CURL_DISABLE_POP3;CURL_DISABLE_IMAP;CURL_DISABLE_SMTP;CURL_DISABLE_GOPHER;CURL_DISABLE_SMB;CURL_DISABLE_RTMP;CURL_DISABLE_CRYPTO_AUTH;USE_BEARSSL"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="FALSE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/libcurl.lib"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<Filter
+				Name="lib">
+				<File RelativePath=".\lib\base64.c"/>
+				<File RelativePath=".\lib\conncache.c"/>
+				<File RelativePath=".\lib\connect.c"/>
+				<File RelativePath=".\lib\content_encoding.c"/>
+				<File RelativePath=".\lib\cookie.c"/>
+				<File RelativePath=".\lib\curl_addrinfo.c"/>
+				<File RelativePath=".\lib\curl_ctype.c"/>
+				<File RelativePath=".\lib\curl_endian.c"/>
+				<File RelativePath=".\lib\curl_fnmatch.c"/>
+				<File RelativePath=".\lib\curl_get_line.c"/>
+				<File RelativePath=".\lib\curl_gethostname.c"/>
+				<File RelativePath=".\lib\curl_memrchr.c"/>
+				<File RelativePath=".\lib\curl_multibyte.c"/>
+				<File RelativePath=".\lib\curl_range.c"/>
+				<File RelativePath=".\lib\curl_threads.c"/>
+				<File RelativePath=".\lib\dotdot.c"/>
+				<File RelativePath=".\lib\easy.c"/>
+				<File RelativePath=".\lib\escape.c"/>
+				<File RelativePath=".\lib\file.c"/>
+				<File RelativePath=".\lib\fileinfo.c"/>
+				<File RelativePath=".\lib\formdata.c"/>
+				<File RelativePath=".\lib\ftp.c"/>
+				<File RelativePath=".\lib\ftplistparser.c"/>
+				<File RelativePath=".\lib\getenv.c"/>
+				<File RelativePath=".\lib\getinfo.c"/>
+				<File RelativePath=".\lib\hash.c"/>
+				<File RelativePath=".\lib\hmac.c"/>
+				<File RelativePath=".\lib\hostasyn.c"/>
+				<File RelativePath=".\lib\hostcheck.c"/>
+				<File RelativePath=".\lib\hostip.c"/>
+				<File RelativePath=".\lib\hostip4.c"/>
+				<File RelativePath=".\lib\hostsyn.c"/>
+				<File RelativePath=".\lib\http.c"/>
+				<File RelativePath=".\lib\http_chunks.c"/>
+				<File RelativePath=".\lib\http_proxy.c"/>
+				<File RelativePath=".\lib\if2ip.c"/>
+				<File RelativePath=".\lib\inet_ntop.c"/>
+				<File RelativePath=".\lib\inet_pton.c"/>
+				<File RelativePath=".\lib\llist.c"/>
+				<File RelativePath=".\lib\mime.c"/>
+				<File RelativePath=".\lib\mprintf.c"/>
+				<File RelativePath=".\lib\multi.c"/>
+				<File RelativePath=".\lib\netrc.c"/>
+				<File RelativePath=".\lib\non-ascii.c"/>
+				<File RelativePath=".\lib\nonblock.c"/>
+				<File RelativePath=".\lib\parsedate.c"/>
+				<File RelativePath=".\lib\progress.c"/>
+				<File RelativePath=".\lib\rand.c"/>
+				<File RelativePath=".\lib\select.c"/>
+				<File RelativePath=".\lib\sendf.c"/>
+				<File RelativePath=".\lib\setopt.c"/>
+				<File RelativePath=".\lib\sha256.c"/>
+				<File RelativePath=".\lib\share.c"/>
+				<File RelativePath=".\lib\slist.c"/>
+				<File RelativePath=".\lib\socks.c"/>
+				<File RelativePath=".\lib\speedcheck.c"/>
+				<File RelativePath=".\lib\splay.c"/>
+				<File RelativePath=".\lib\strcase.c"/>
+				<File RelativePath=".\lib\strdup.c"/>
+				<File RelativePath=".\lib\strerror.c"/>
+				<File RelativePath=".\lib\strtok.c"/>
+				<File RelativePath=".\lib\strtoofft.c"/>
+				<File RelativePath=".\lib\system_win32.c"/>
+				<File RelativePath=".\lib\timeval.c"/>
+				<File RelativePath=".\lib\transfer.c"/>
+				<File RelativePath=".\lib\url.c"/>
+				<File RelativePath=".\lib\urlapi.c"/>
+				<File RelativePath=".\lib\version.c"/>
+				<File RelativePath=".\lib\warnless.c"/>
+				<File RelativePath=".\lib\wildcard.c"/>
+				<File RelativePath=".\lib\x509asn1.c"/>
+			</Filter>
+			<Filter
+				Name="vtls">
+				<File RelativePath=".\lib\vtls\bearssl.c"/>
+				<File RelativePath=".\lib\vtls\vtls.c"/>
+			</Filter>
+			<Filter
+				Name="vauth">
+				<File RelativePath=".\lib\vauth\cleartext.c"/>
+				<File RelativePath=".\lib\vauth\vauth.c"/>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<Filter
+				Name="include">
+				<File RelativePath=".\include\curl\curl.h"/>
+				<File RelativePath=".\include\curl\curlver.h"/>
+				<File RelativePath=".\include\curl\easy.h"/>
+				<File RelativePath=".\include\curl\mprintf.h"/>
+				<File RelativePath=".\include\curl\multi.h"/>
+				<File RelativePath=".\include\curl\stdcheaders.h"/>
+				<File RelativePath=".\include\curl\system.h"/>
+				<File RelativePath=".\include\curl\typecheck-gcc.h"/>
+				<File RelativePath=".\include\curl\urlapi.h"/>
+			</Filter>
+			<Filter
+				Name="lib">
+				<File RelativePath=".\lib\curl_setup.h"/>
+				<File RelativePath=".\lib\urldata.h"/>
+			</Filter>
+			<Filter
+				Name="vtls">
+				<File RelativePath=".\lib\vtls\bearssl.h"/>
+				<File RelativePath=".\lib\vtls\vtls.h"/>
+			</Filter>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XboxOGBearSSL", "XboxOGBearSSL.vcproj", "{021C5334-2823-495E-9E54-2DEC11E06040}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Profile = Profile
+		Profile_FastCap = Profile_FastCap
+		Release = Release
+		Release_LTCG = Release_LTCG
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Debug.ActiveCfg = Debug|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Debug.Build.0 = Debug|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Profile.ActiveCfg = Profile|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Profile.Build.0 = Profile|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Profile_FastCap.ActiveCfg = Profile_FastCap|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Profile_FastCap.Build.0 = Profile_FastCap|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Release.ActiveCfg = Release|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Release.Build.0 = Release|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Release_LTCG.ActiveCfg = Release_LTCG|Xbox
+		{021C5334-2823-495E-9E54-2DEC11E06040}.Release_LTCG.Build.0 = Release_LTCG|Xbox
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

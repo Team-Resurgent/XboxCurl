@@ -1,0 +1,47 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbearssl", "BearSSL-OG\libbearssl.vcproj", "{A1B2C3D4-1234-5678-9ABC-DEF012345678}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcurl", "libcurl\libcurl.vcproj", "{C3127A20-19DD-4483-AC21-D35386AC0E7C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1B2C3D4-1234-5678-9ABC-DEF012345678} = {A1B2C3D4-1234-5678-9ABC-DEF012345678}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcproj", "{12345678-TEST-TEST-TEST-123456789ABC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1B2C3D4-1234-5678-9ABC-DEF012345678} = {A1B2C3D4-1234-5678-9ABC-DEF012345678}
+		{C3127A20-19DD-4483-AC21-D35386AC0E7C} = {C3127A20-19DD-4483-AC21-D35386AC0E7C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_minimal", "test\test_minimal.vcproj", "{12345678-TMIN-TMIN-TMIN-123456789ABC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C3127A20-19DD-4483-AC21-D35386AC0E7C} = {C3127A20-19DD-4483-AC21-D35386AC0E7C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A1B2C3D4-1234-5678-9ABC-DEF012345678}.Debug.ActiveCfg = Debug|Xbox
+		{A1B2C3D4-1234-5678-9ABC-DEF012345678}.Debug.Build.0 = Debug|Xbox
+		{A1B2C3D4-1234-5678-9ABC-DEF012345678}.Release.ActiveCfg = Release|Xbox
+		{A1B2C3D4-1234-5678-9ABC-DEF012345678}.Release.Build.0 = Release|Xbox
+		{C3127A20-19DD-4483-AC21-D35386AC0E7C}.Debug.ActiveCfg = Debug|Xbox
+		{C3127A20-19DD-4483-AC21-D35386AC0E7C}.Debug.Build.0 = Debug|Xbox
+		{C3127A20-19DD-4483-AC21-D35386AC0E7C}.Release.ActiveCfg = Release|Xbox
+		{C3127A20-19DD-4483-AC21-D35386AC0E7C}.Release.Build.0 = Release|Xbox
+		{12345678-TEST-TEST-TEST-123456789ABC}.Debug.ActiveCfg = Debug|Xbox
+		{12345678-TEST-TEST-TEST-123456789ABC}.Debug.Build.0 = Debug|Xbox
+		{12345678-TEST-TEST-TEST-123456789ABC}.Release.ActiveCfg = Release|Xbox
+		{12345678-TEST-TEST-TEST-123456789ABC}.Release.Build.0 = Release|Xbox
+		{12345678-TMIN-TMIN-TMIN-123456789ABC}.Debug.ActiveCfg = Debug|Xbox
+		{12345678-TMIN-TMIN-TMIN-123456789ABC}.Debug.Build.0 = Debug|Xbox
+		{12345678-TMIN-TMIN-TMIN-123456789ABC}.Release.ActiveCfg = Release|Xbox
+		{12345678-TMIN-TMIN-TMIN-123456789ABC}.Release.Build.0 = Release|Xbox
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
