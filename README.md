@@ -66,6 +66,11 @@ It was chosen because it fits well within Original Xbox memory and CPU limits.
 
 ---
 
+<img width="1164" height="655" alt="image" src="https://github.com/user-attachments/assets/9f913ae7-b28e-4f6d-9409-5342c215320f" />
+<img width="1164" height="655" alt="image" src="https://github.com/user-attachments/assets/f331d030-feba-48a4-9fe6-158340a9f93d" />
+
+
+
 ## Features Tested
 
 The included test program checks that libcurl works correctly on Xbox:
