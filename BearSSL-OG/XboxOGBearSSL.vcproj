@@ -345,6 +345,9 @@
 				RelativePath=".\ssl_debug.cpp">
 			</File>
 			<File
+				RelativePath=".\debug.cpp">
+			</File>
+			<File
 				RelativePath=".\session_cache.cpp">
 			</File>
 			<File
@@ -1351,6 +1354,9 @@
 			</File>
 			<File
 				RelativePath=".\ssl_debug.h">
+			</File>
+			<File
+				RelativePath=".\ebug.h">
 			</File>
 			<File
 				RelativePath=".\session_cache.h">

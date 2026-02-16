@@ -19,7 +19,7 @@
 /* BearSSL debug support */
 #include <bearssl.h>
 #include "../BearSSL-OG/ssl_debug.h"
-#include "../BearSSL-OG/debug_utility.h"
+#include "../BearSSL-OG/debug.h"
 #include "../BearSSL-OG/session_cache.h"
 #include "../BearSSL-OG/cert_pinning.h"
 

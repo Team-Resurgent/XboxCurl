@@ -2,7 +2,6 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include "debug_utility.h"
 
 typedef struct {
 	uint32_t *dp;
@@ -1288,7 +1287,11 @@ br_ssl_hs_client_run(void *t0ctx)
 			case 32: {
 				/* debug-session-ticket */
                 size_t len = T0_POP();
-                debug_print("BearSSL: NewSessionTicket received (%u bytes)\r\n", len);
+#ifdef _DEBUG
+                char buffer[256];
+                sprintf(buffer, "BearSSL: NewSessionTicket received (%u bytes)\r\n", len);
+                OutputDebugStringA(buffer);
+#endif
 				}
 				break;
 			case 33: {

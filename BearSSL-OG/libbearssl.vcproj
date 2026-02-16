@@ -132,27 +132,6 @@
 				RelativePath=".\certificates.cpp">
 			</File>
 			<File
-				RelativePath=".\debug_utility.c">
-				<FileConfiguration
-					Name="Debug|Xbox">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Xbox">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_LTCG|Xbox">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\session_cache.cpp">
 			</File>
 			<File
@@ -160,6 +139,9 @@
 			</File>
 			<File
 				RelativePath=".\ssl_debug.cpp">
+			</File>
+			<File
+				RelativePath=".\debug.cpp">
 			</File>
 			<File
 				RelativePath=".\ssl_errors.cpp">
@@ -1122,12 +1104,6 @@
 			</File>
 			<File
 				RelativePath=".\libbearssl\inc\bearssl_x509.h">
-			</File>
-			<File
-				RelativePath=".\debug_utility.h">
-			</File>
-			<File
-				RelativePath=".\libbearssl\src\inner.h">
 			</File>
 			<File
 				RelativePath=".\missing\stdint.h">

@@ -1,11 +1,11 @@
-#include "debug_utility.h"
-
+#include "debug.h"
 #include <xtl.h>
 #include <stdio.h>
 #include <stdarg.h>
 
-int debug_utility::debug_print(const char* format, ...)
+void debug::print(const char* format, ...)
 {
+#ifdef _DEBUG
 	/* Use a fixed buffer since VS2003 doesn't support va_copy */
 	char message[512];
 	va_list args;
@@ -24,5 +24,7 @@ int debug_utility::debug_print(const char* format, ...)
 	}
 
 	OutputDebugStringA(message);
-	return length;
+#else
+    (void)format; 
+#endif
 }
