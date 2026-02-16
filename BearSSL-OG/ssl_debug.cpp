@@ -22,42 +22,42 @@ void ssl_debug::log_error(const char* format, ...)
 {
     if (current_level < SSL_DEBUG_ERROR) return;
 
-    debug_utility::debug_print("[SSL ERROR] ");
+    debug_log("[SSL ERROR] ");
     va_list args;
     va_start(args, format);
     char buffer[256];
     _vsnprintf(buffer, sizeof(buffer) - 1, format, args);
     buffer[sizeof(buffer) - 1] = '\0';
     va_end(args);
-    debug_utility::debug_print("%s", buffer);
+    debug_log("%s", buffer);
 }
 
 void ssl_debug::log_info(const char* format, ...)
 {
     if (current_level < SSL_DEBUG_INFO) return;
 
-    debug_utility::debug_print("[SSL] ");
+    debug_log("[SSL] ");
     va_list args;
     va_start(args, format);
     char buffer[256];
     _vsnprintf(buffer, sizeof(buffer) - 1, format, args);
     buffer[sizeof(buffer) - 1] = '\0';
     va_end(args);
-    debug_utility::debug_print("%s", buffer);
+    debug_log("%s", buffer);
 }
 
 void ssl_debug::log_verbose(const char* format, ...)
 {
     if (current_level < SSL_DEBUG_VERBOSE) return;
 
-    debug_utility::debug_print("[SSL DEBUG] ");
+    debug_log("[SSL DEBUG] ");
     va_list args;
     va_start(args, format);
     char buffer[256];
     _vsnprintf(buffer, sizeof(buffer) - 1, format, args);
     buffer[sizeof(buffer) - 1] = '\0';
     va_end(args);
-    debug_utility::debug_print("%s", buffer);
+    debug_log("%s", buffer);
 }
 
 const char* ssl_debug::version_to_string(unsigned version)

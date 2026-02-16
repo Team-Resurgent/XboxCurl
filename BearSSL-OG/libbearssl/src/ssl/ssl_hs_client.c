@@ -1286,15 +1286,8 @@ br_ssl_hs_client_run(void *t0ctx)
 				break;
 			case 32: {
 				/* debug-session-ticket */
-
-	extern void __stdcall OutputDebugStringA(const char *);
-	extern int sprintf(char *, const char *, ...);
-	char buf[80];
-	size_t len = T0_POP();
-	sprintf(buf, "BearSSL: NewSessionTicket received (%u bytes)\r\n",
-		(unsigned)len);
-	OutputDebugStringA(buf);
-
+                size_t len = T0_POP();
+                debug_log("BearSSL: NewSessionTicket received (%u bytes)\r\n", len);
 				}
 				break;
 			case 33: {

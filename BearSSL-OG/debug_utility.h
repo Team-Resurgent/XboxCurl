@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef _DEBUG
+#define debug_log debug_utility::debug_print
+#else
+#define debug_log(...) ((void)0)
+#endif
+
 class debug_utility
 {
 public:

@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#ifdef _DEBUG
+
 int debug_utility::debug_print(const char* format, ...)
 {
 	/* Use a fixed buffer since VS2003 doesn't support va_copy */
@@ -26,3 +28,5 @@ int debug_utility::debug_print(const char* format, ...)
 	OutputDebugStringA(message);
 	return length;
 }
+
+#endif

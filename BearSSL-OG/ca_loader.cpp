@@ -324,7 +324,7 @@ int ca_loader::load_pem_file(const char *path,
 	FILE *f = fopen(path, "rb");
 	if (f == NULL)
 	{
-		debug_utility::debug_print("ca_loader: cannot open %s\n", path);
+		debug_log("ca_loader: cannot open %s\n", path);
 		return -1;
 	}
 
@@ -334,7 +334,7 @@ int ca_loader::load_pem_file(const char *path,
 
 	if (file_size <= 0 || file_size > 2 * 1024 * 1024)
 	{
-		debug_utility::debug_print("ca_loader: file too large or empty (%ld bytes)\n", file_size);
+		debug_log("ca_loader: file too large or empty (%ld bytes)\n", file_size);
 		fclose(f);
 		return -1;
 	}
@@ -342,7 +342,7 @@ int ca_loader::load_pem_file(const char *path,
 	unsigned char *file_data = (unsigned char *)malloc((size_t)file_size);
 	if (file_data == NULL)
 	{
-		debug_utility::debug_print("ca_loader: malloc failed for file data\n");
+		debug_log("ca_loader: malloc failed for file data\n");
 		fclose(f);
 		return -1;
 	}
@@ -352,7 +352,7 @@ int ca_loader::load_pem_file(const char *path,
 
 	if (bytes_read != (size_t)file_size)
 	{
-		debug_utility::debug_print("ca_loader: short read (%u of %ld)\n",
+		debug_log("ca_loader: short read (%u of %ld)\n",
 			(unsigned)bytes_read, file_size);
 		free(file_data);
 		return -1;
@@ -457,7 +457,7 @@ int ca_loader::load_pem_file(const char *path,
 	byte_buffer_free(&dn_buf);
 	free(file_data);
 
-	debug_utility::debug_print("ca_loader: loaded %d trust anchors from %s (%d failed)\n",
+	debug_log("ca_loader: loaded %d trust anchors from %s (%d failed)\n",
 		certs_parsed, path, certs_failed);
 
 	if (anchor_count == 0)
@@ -556,7 +556,7 @@ int ca_loader::download_https(const char *host, const char *path,
 	uint32_t host_ip = ca_resolve_host(host);
 	if (host_ip == 0)
 	{
-		debug_utility::debug_print("ca_loader: DNS failed for %s\n", host);
+		debug_log("ca_loader: DNS failed for %s\n", host);
 		return -1;
 	}
 
@@ -564,7 +564,7 @@ int ca_loader::download_https(const char *host, const char *path,
 	SOCKET sock = ca_connect(host_ip, port);
 	if (sock == INVALID_SOCKET)
 	{
-		debug_utility::debug_print("ca_loader: connect failed to %s:%u\n",
+		debug_log("ca_loader: connect failed to %s:%u\n",
 			host, (unsigned)port);
 		return -1;
 	}
@@ -724,7 +724,7 @@ int ca_loader::download_https(const char *host, const char *path,
 	if ((status_code == 301 || status_code == 302 || status_code == 307)
 		&& has_redirect && max_redirects > 0)
 	{
-		debug_utility::debug_print("ca_loader: redirect %d -> %s%s\n",
+		debug_log("ca_loader: redirect %d -> %s%s\n",
 			status_code, redirect_host, redirect_path);
 
 		byte_buffer_free(&hdr);
@@ -738,7 +738,7 @@ int ca_loader::download_https(const char *host, const char *path,
 
 	if (status_code != 200)
 	{
-		debug_utility::debug_print("ca_loader: HTTP %d from %s%s\n",
+		debug_log("ca_loader: HTTP %d from %s%s\n",
 			status_code, host, path);
 		byte_buffer_free(&hdr);
 		free(readbuf);
@@ -755,7 +755,7 @@ int ca_loader::download_https(const char *host, const char *path,
 	FILE *fp = fopen(temp_path, "wb");
 	if (fp == NULL)
 	{
-		debug_utility::debug_print("ca_loader: cannot create %s (err=%lu)\n",
+		debug_log("ca_loader: cannot create %s (err=%lu)\n",
 			temp_path, GetLastError());
 		byte_buffer_free(&hdr);
 		free(readbuf);
@@ -803,7 +803,7 @@ int ca_loader::download_https(const char *host, const char *path,
 	/* Check for disk write errors */
 	if (write_error)
 	{
-		debug_utility::debug_print("ca_loader: write error saving to %s\n",
+		debug_log("ca_loader: write error saving to %s\n",
 			temp_path);
 		remove(temp_path);
 		return -1;
@@ -812,7 +812,7 @@ int ca_loader::download_https(const char *host, const char *path,
 	/* Sanity check: CA bundles are typically 200-300 KB */
 	if (total_written < 1024)
 	{
-		debug_utility::debug_print("ca_loader: download too small (%I64d bytes)\n",
+		debug_log("ca_loader: download too small (%I64d bytes)\n",
 			total_written);
 		remove(temp_path);
 		return -1;
@@ -822,13 +822,13 @@ int ca_loader::download_https(const char *host, const char *path,
 	remove(save_path);
 	if (rename(temp_path, save_path) != 0)
 	{
-		debug_utility::debug_print("ca_loader: rename %s -> %s failed\n",
+		debug_log("ca_loader: rename %s -> %s failed\n",
 			temp_path, save_path);
 		remove(temp_path);
 		return -1;
 	}
 
-	debug_utility::debug_print("ca_loader: downloaded %I64d bytes to %s\n",
+	debug_log("ca_loader: downloaded %I64d bytes to %s\n",
 		total_written, save_path);
 	result = 0;
 	return result;
@@ -842,18 +842,18 @@ int ca_loader::update_trust_store(const char *save_path,
 	if (f != NULL)
 	{
 		fclose(f);
-		debug_utility::debug_print("ca_loader: %s already exists, skipping download\n",
+		debug_log("ca_loader: %s already exists, skipping download\n",
 			save_path);
 		return 0;
 	}
 
 	if (anchors == NULL || anchor_count == 0)
 	{
-		debug_utility::debug_print("ca_loader: no trust anchors for download\n");
+		debug_log("ca_loader: no trust anchors for download\n");
 		return -1;
 	}
 
-	debug_utility::debug_print("ca_loader: downloading CA bundle from %s...\n",
+	debug_log("ca_loader: downloading CA bundle from %s...\n",
 		CA_BUNDLE_HOST);
 
 	return download_https(CA_BUNDLE_HOST, CA_BUNDLE_PATH, CA_BUNDLE_PORT,

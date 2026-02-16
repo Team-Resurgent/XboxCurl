@@ -2,6 +2,7 @@
 #include "ca_loader.h"
 #include <bearssl_x509.h>
 #include <xtl.h>
+#include "debug_utility.h"
 
 #include "trust_anchors.h"
 
@@ -23,7 +24,7 @@ void certificates::initialize_trust_anchors()
 	trust_anchors = (br_x509_trust_anchor*)malloc(NUM_TRUST_ANCHORS * sizeof br_x509_trust_anchor);
 	if (trust_anchors == NULL)
 	{
-		OutputDebugStringA("certificates: FATAL - malloc failed for trust anchors!\n");
+		debug_log("certificates: FATAL - malloc failed for trust anchors!\n");
 		return;
 	}
 	trust_anchor_count = NUM_TRUST_ANCHORS;

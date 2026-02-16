@@ -34,7 +34,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/libcurl.lib"/>
+				OutputFile="$(OutDir)/libcurld.lib"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -118,87 +118,237 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<Filter
 				Name="lib">
-				<File RelativePath=".\lib\base64.c"/>
-				<File RelativePath=".\lib\conncache.c"/>
-				<File RelativePath=".\lib\connect.c"/>
-				<File RelativePath=".\lib\content_encoding.c"/>
-				<File RelativePath=".\lib\cookie.c"/>
-				<File RelativePath=".\lib\curl_addrinfo.c"/>
-				<File RelativePath=".\lib\curl_ctype.c"/>
-				<File RelativePath=".\lib\curl_endian.c"/>
-				<File RelativePath=".\lib\curl_fnmatch.c"/>
-				<File RelativePath=".\lib\curl_get_line.c"/>
-				<File RelativePath=".\lib\curl_gethostname.c"/>
-				<File RelativePath=".\lib\curl_memrchr.c"/>
-				<File RelativePath=".\lib\curl_multibyte.c"/>
-				<File RelativePath=".\lib\curl_range.c"/>
-				<File RelativePath=".\lib\curl_threads.c"/>
-				<File RelativePath=".\lib\dotdot.c"/>
-				<File RelativePath=".\lib\easy.c"/>
-				<File RelativePath=".\lib\escape.c"/>
-				<File RelativePath=".\lib\file.c"/>
-				<File RelativePath=".\lib\fileinfo.c"/>
-				<File RelativePath=".\lib\formdata.c"/>
-				<File RelativePath=".\lib\ftp.c"/>
-				<File RelativePath=".\lib\ftplistparser.c"/>
-				<File RelativePath=".\lib\getenv.c"/>
-				<File RelativePath=".\lib\getinfo.c"/>
-				<File RelativePath=".\lib\hash.c"/>
-				<File RelativePath=".\lib\hmac.c"/>
-				<File RelativePath=".\lib\hostasyn.c"/>
-				<File RelativePath=".\lib\hostcheck.c"/>
-				<File RelativePath=".\lib\hostip.c"/>
-				<File RelativePath=".\lib\hostip4.c"/>
-				<File RelativePath=".\lib\hostsyn.c"/>
-				<File RelativePath=".\lib\http.c"/>
-				<File RelativePath=".\lib\http_chunks.c"/>
-				<File RelativePath=".\lib\http_proxy.c"/>
-				<File RelativePath=".\lib\if2ip.c"/>
-				<File RelativePath=".\lib\inet_ntop.c"/>
-				<File RelativePath=".\lib\inet_pton.c"/>
-				<File RelativePath=".\lib\llist.c"/>
-				<File RelativePath=".\lib\mime.c"/>
-				<File RelativePath=".\lib\mprintf.c"/>
-				<File RelativePath=".\lib\multi.c"/>
-				<File RelativePath=".\lib\netrc.c"/>
-				<File RelativePath=".\lib\non-ascii.c"/>
-				<File RelativePath=".\lib\nonblock.c"/>
-				<File RelativePath=".\lib\parsedate.c"/>
-				<File RelativePath=".\lib\progress.c"/>
-				<File RelativePath=".\lib\rand.c"/>
-				<File RelativePath=".\lib\select.c"/>
-				<File RelativePath=".\lib\sendf.c"/>
-				<File RelativePath=".\lib\setopt.c"/>
-				<File RelativePath=".\lib\sha256.c"/>
-				<File RelativePath=".\lib\share.c"/>
-				<File RelativePath=".\lib\slist.c"/>
-				<File RelativePath=".\lib\socks.c"/>
-				<File RelativePath=".\lib\speedcheck.c"/>
-				<File RelativePath=".\lib\splay.c"/>
-				<File RelativePath=".\lib\strcase.c"/>
-				<File RelativePath=".\lib\strdup.c"/>
-				<File RelativePath=".\lib\strerror.c"/>
-				<File RelativePath=".\lib\strtok.c"/>
-				<File RelativePath=".\lib\strtoofft.c"/>
-				<File RelativePath=".\lib\system_win32.c"/>
-				<File RelativePath=".\lib\timeval.c"/>
-				<File RelativePath=".\lib\transfer.c"/>
-				<File RelativePath=".\lib\url.c"/>
-				<File RelativePath=".\lib\urlapi.c"/>
-				<File RelativePath=".\lib\version.c"/>
-				<File RelativePath=".\lib\warnless.c"/>
-				<File RelativePath=".\lib\wildcard.c"/>
-				<File RelativePath=".\lib\x509asn1.c"/>
+				<File
+					RelativePath=".\lib\base64.c">
+				</File>
+				<File
+					RelativePath=".\lib\conncache.c">
+				</File>
+				<File
+					RelativePath=".\lib\connect.c">
+				</File>
+				<File
+					RelativePath=".\lib\content_encoding.c">
+				</File>
+				<File
+					RelativePath=".\lib\cookie.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_addrinfo.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_ctype.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_endian.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_fnmatch.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_get_line.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_gethostname.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_memrchr.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_multibyte.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_range.c">
+				</File>
+				<File
+					RelativePath=".\lib\curl_threads.c">
+				</File>
+				<File
+					RelativePath=".\lib\dotdot.c">
+				</File>
+				<File
+					RelativePath=".\lib\easy.c">
+				</File>
+				<File
+					RelativePath=".\lib\escape.c">
+				</File>
+				<File
+					RelativePath=".\lib\file.c">
+				</File>
+				<File
+					RelativePath=".\lib\fileinfo.c">
+				</File>
+				<File
+					RelativePath=".\lib\formdata.c">
+				</File>
+				<File
+					RelativePath=".\lib\ftp.c">
+				</File>
+				<File
+					RelativePath=".\lib\ftplistparser.c">
+				</File>
+				<File
+					RelativePath=".\lib\getenv.c">
+				</File>
+				<File
+					RelativePath=".\lib\getinfo.c">
+				</File>
+				<File
+					RelativePath=".\lib\hash.c">
+				</File>
+				<File
+					RelativePath=".\lib\hmac.c">
+				</File>
+				<File
+					RelativePath=".\lib\hostasyn.c">
+				</File>
+				<File
+					RelativePath=".\lib\hostcheck.c">
+				</File>
+				<File
+					RelativePath=".\lib\hostip.c">
+				</File>
+				<File
+					RelativePath=".\lib\hostip4.c">
+				</File>
+				<File
+					RelativePath=".\lib\hostsyn.c">
+				</File>
+				<File
+					RelativePath=".\lib\http.c">
+				</File>
+				<File
+					RelativePath=".\lib\http_chunks.c">
+				</File>
+				<File
+					RelativePath=".\lib\http_proxy.c">
+				</File>
+				<File
+					RelativePath=".\lib\if2ip.c">
+				</File>
+				<File
+					RelativePath=".\lib\inet_ntop.c">
+				</File>
+				<File
+					RelativePath=".\lib\inet_pton.c">
+				</File>
+				<File
+					RelativePath=".\lib\llist.c">
+				</File>
+				<File
+					RelativePath=".\lib\mime.c">
+				</File>
+				<File
+					RelativePath=".\lib\mprintf.c">
+				</File>
+				<File
+					RelativePath=".\lib\multi.c">
+				</File>
+				<File
+					RelativePath=".\lib\netrc.c">
+				</File>
+				<File
+					RelativePath=".\lib\non-ascii.c">
+				</File>
+				<File
+					RelativePath=".\lib\nonblock.c">
+				</File>
+				<File
+					RelativePath=".\lib\parsedate.c">
+				</File>
+				<File
+					RelativePath=".\lib\progress.c">
+				</File>
+				<File
+					RelativePath=".\lib\rand.c">
+				</File>
+				<File
+					RelativePath=".\lib\select.c">
+				</File>
+				<File
+					RelativePath=".\lib\sendf.c">
+				</File>
+				<File
+					RelativePath=".\lib\setopt.c">
+				</File>
+				<File
+					RelativePath=".\lib\sha256.c">
+				</File>
+				<File
+					RelativePath=".\lib\share.c">
+				</File>
+				<File
+					RelativePath=".\lib\slist.c">
+				</File>
+				<File
+					RelativePath=".\lib\socks.c">
+				</File>
+				<File
+					RelativePath=".\lib\speedcheck.c">
+				</File>
+				<File
+					RelativePath=".\lib\splay.c">
+				</File>
+				<File
+					RelativePath=".\lib\strcase.c">
+				</File>
+				<File
+					RelativePath=".\lib\strdup.c">
+				</File>
+				<File
+					RelativePath=".\lib\strerror.c">
+				</File>
+				<File
+					RelativePath=".\lib\strtok.c">
+				</File>
+				<File
+					RelativePath=".\lib\strtoofft.c">
+				</File>
+				<File
+					RelativePath=".\lib\system_win32.c">
+				</File>
+				<File
+					RelativePath=".\lib\timeval.c">
+				</File>
+				<File
+					RelativePath=".\lib\transfer.c">
+				</File>
+				<File
+					RelativePath=".\lib\url.c">
+				</File>
+				<File
+					RelativePath=".\lib\urlapi.c">
+				</File>
+				<File
+					RelativePath=".\lib\version.c">
+				</File>
+				<File
+					RelativePath=".\lib\warnless.c">
+				</File>
+				<File
+					RelativePath=".\lib\wildcard.c">
+				</File>
+				<File
+					RelativePath=".\lib\x509asn1.c">
+				</File>
 			</Filter>
 			<Filter
 				Name="vtls">
-				<File RelativePath=".\lib\vtls\bearssl.c"/>
-				<File RelativePath=".\lib\vtls\vtls.c"/>
+				<File
+					RelativePath=".\lib\vtls\bearssl.c">
+				</File>
+				<File
+					RelativePath=".\lib\vtls\vtls.c">
+				</File>
 			</Filter>
 			<Filter
 				Name="vauth">
-				<File RelativePath=".\lib\vauth\cleartext.c"/>
-				<File RelativePath=".\lib\vauth\vauth.c"/>
+				<File
+					RelativePath=".\lib\vauth\cleartext.c">
+				</File>
+				<File
+					RelativePath=".\lib\vauth\vauth.c">
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -207,25 +357,51 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<Filter
 				Name="include">
-				<File RelativePath=".\include\curl\curl.h"/>
-				<File RelativePath=".\include\curl\curlver.h"/>
-				<File RelativePath=".\include\curl\easy.h"/>
-				<File RelativePath=".\include\curl\mprintf.h"/>
-				<File RelativePath=".\include\curl\multi.h"/>
-				<File RelativePath=".\include\curl\stdcheaders.h"/>
-				<File RelativePath=".\include\curl\system.h"/>
-				<File RelativePath=".\include\curl\typecheck-gcc.h"/>
-				<File RelativePath=".\include\curl\urlapi.h"/>
+				<File
+					RelativePath=".\include\curl\curl.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\curlver.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\easy.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\mprintf.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\multi.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\stdcheaders.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\system.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\typecheck-gcc.h">
+				</File>
+				<File
+					RelativePath=".\include\curl\urlapi.h">
+				</File>
 			</Filter>
 			<Filter
 				Name="lib">
-				<File RelativePath=".\lib\curl_setup.h"/>
-				<File RelativePath=".\lib\urldata.h"/>
+				<File
+					RelativePath=".\lib\curl_setup.h">
+				</File>
+				<File
+					RelativePath=".\lib\urldata.h">
+				</File>
 			</Filter>
 			<Filter
 				Name="vtls">
-				<File RelativePath=".\lib\vtls\bearssl.h"/>
-				<File RelativePath=".\lib\vtls\vtls.h"/>
+				<File
+					RelativePath=".\lib\vtls\bearssl.h">
+				</File>
+				<File
+					RelativePath=".\lib\vtls\vtls.h">
+				</File>
 			</Filter>
 		</Filter>
 	</Files>
