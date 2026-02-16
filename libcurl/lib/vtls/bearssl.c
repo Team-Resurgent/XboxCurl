@@ -36,12 +36,6 @@
 #include "select.h"
 #include "multiif.h"
 
-#ifdef _DEBUG
-#define debug_log OutputDebugStringA
-#else
-#define debug_log(...) ((void)0)
-#endif
-
 /* Xbox-specific BearSSL integration */
 #ifdef _XBOX
 #include "bearssl_xbox.h"
@@ -54,6 +48,12 @@
 #include "curl_printf.h"
 #include "curl_memory.h"
 #include "memdebug.h"
+
+#ifdef _DEBUG
+#define debug_print OutputDebugStringA
+#else
+#define debug_print(message) ((void)0)
+#endif
 
 /*
  * Xbox time validation callback for X.509 certificate checking.
@@ -145,18 +145,18 @@ static void xc_noanchor_start_chain(const br_x509_class **ctx,
     msnprintf(dbg, sizeof(dbg),
       "BearSSL noanchor X509: start_chain called, ctx=%p, xc=%p, minimal=%p\n",
       (void*)ctx, (void*)xc, (void*)xc->minimal);
-    debug_log(dbg);
+    debug_print(dbg);
     if(xc->minimal) {
       msnprintf(dbg, sizeof(dbg),
         "BearSSL noanchor X509: server=%s, minimal->vtable=%p\n",
         server_name ? server_name : "(null)",
         (void*)xc->minimal->vtable);
-      debug_log(dbg);
+      debug_print(dbg);
     }
   }
 #endif
   if(!xc->minimal || !xc->minimal->vtable) {
-    debug_log("BearSSL noanchor X509: ERROR - minimal or vtable is NULL!\n");
+    debug_print("BearSSL noanchor X509: ERROR - minimal or vtable is NULL!\n");
     return;
   }
 
@@ -173,7 +173,7 @@ static void xc_noanchor_start_chain(const br_x509_class **ctx,
   }
 
   xc->minimal->vtable->start_chain(&xc->minimal->vtable, server_name);
-  debug_log("BearSSL noanchor X509: start_chain forwarded OK\n");
+  debug_print("BearSSL noanchor X509: start_chain forwarded OK\n");
 }
 
 static void xc_noanchor_start_cert(const br_x509_class **ctx, uint32_t length)
@@ -184,7 +184,7 @@ static void xc_noanchor_start_cert(const br_x509_class **ctx, uint32_t length)
     char dbg[128];
     msnprintf(dbg, sizeof(dbg), "BearSSL noanchor X509: start_cert[%d], length=%u\n",
               xc->cert_index, (unsigned)length);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
   /* For the leaf certificate (index 0), start hashing for pin check */
@@ -213,7 +213,7 @@ static void xc_noanchor_end_cert(const br_x509_class **ctx)
     char dbg[64];
     msnprintf(dbg, sizeof(dbg), "BearSSL noanchor X509: end_cert[%d]\n",
               xc->cert_index);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
   xc->minimal->vtable->end_cert(&xc->minimal->vtable);
@@ -232,7 +232,7 @@ static void xc_noanchor_end_cert(const br_x509_class **ctx)
         xc->leaf_hash[2], xc->leaf_hash[3],
         xc->leaf_hash[4], xc->leaf_hash[5],
         xc->leaf_hash[6], xc->leaf_hash[7]);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
   }
@@ -245,7 +245,7 @@ static void xc_noanchor_end_cert(const br_x509_class **ctx)
     msnprintf(dbg, sizeof(dbg),
       "BearSSL noanchor X509: minimal->err=%d, pkey.key_type=%d\n",
       xc->minimal->err, xc->minimal->pkey.key_type);
-    debug_log(dbg);
+    debug_print(dbg);
 
     if(xc->minimal->pkey.key_type == BR_KEYTYPE_RSA) {
       msnprintf(dbg, sizeof(dbg),
@@ -254,7 +254,7 @@ static void xc_noanchor_end_cert(const br_x509_class **ctx)
         (unsigned)xc->minimal->pkey.key.rsa.nlen,
         (void*)xc->minimal->pkey.key.rsa.e,
         (unsigned)xc->minimal->pkey.key.rsa.elen);
-      debug_log(dbg);
+      debug_print(dbg);
     }
     else if(xc->minimal->pkey.key_type == BR_KEYTYPE_EC) {
       msnprintf(dbg, sizeof(dbg),
@@ -262,7 +262,7 @@ static void xc_noanchor_end_cert(const br_x509_class **ctx)
         xc->minimal->pkey.key.ec.curve,
         (void*)xc->minimal->pkey.key.ec.q,
         (unsigned)xc->minimal->pkey.key.ec.qlen);
-      debug_log(dbg);
+      debug_print(dbg);
     }
   }
 #endif
@@ -282,7 +282,7 @@ static unsigned xc_noanchor_end_chain(const br_x509_class **ctx)
     msnprintf(dbg, sizeof(dbg),
       "BearSSL noanchor X509: end_chain, minimal returned %u (err=%d)\n",
       result, xc->minimal->err);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -318,7 +318,7 @@ static unsigned xc_noanchor_end_chain(const br_x509_class **ctx)
     if(xc->leaf_hash_valid && xc->pin_hostname[0] != '\0') {
       if(!bearssl_xbox_pin_verify_hash(xc->pin_hostname, xc->leaf_hash)) {
 #ifdef _XBOX
-        debug_log("BearSSL noanchor X509: CERTIFICATE PIN MISMATCH - rejecting!\n");
+        debug_print("BearSSL noanchor X509: CERTIFICATE PIN MISMATCH - rejecting!\n");
 #endif
         return BR_ERR_X509_NOT_TRUSTED;
       }
@@ -331,7 +331,7 @@ static unsigned xc_noanchor_end_chain(const br_x509_class **ctx)
       msnprintf(dbg, sizeof(dbg),
         "BearSSL noanchor X509: accepting certificate (insecure mode, result=%u)\n",
         result);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     return 0;  /* Success */
@@ -343,7 +343,7 @@ static unsigned xc_noanchor_end_chain(const br_x509_class **ctx)
     char dbg[128];
     msnprintf(dbg, sizeof(dbg),
       "BearSSL noanchor X509: certificate parsing error %u\n", result);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
   return result;
@@ -364,7 +364,7 @@ static const br_x509_pkey *xc_noanchor_get_pkey(
     msnprintf(dbg, sizeof(dbg),
       "BearSSL noanchor X509: get_pkey returned %p (err=%d, key_type=%d)\n",
       (void*)pk, xc->minimal->err, xc->minimal->pkey.key_type);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -391,7 +391,7 @@ static const br_x509_pkey *xc_noanchor_get_pkey(
         msnprintf(dbg, sizeof(dbg),
           "BearSSL noanchor X509: returning key directly (err=%d bypassed)\n",
           xc->minimal->err);
-        debug_log(dbg);
+        debug_print(dbg);
       }
 #endif
       if(usages)
@@ -399,7 +399,7 @@ static const br_x509_pkey *xc_noanchor_get_pkey(
       return &xc->minimal->pkey;
     }
 #ifdef _XBOX
-    debug_log("BearSSL noanchor X509: ERROR - no valid key available!\n");
+    debug_print("BearSSL noanchor X509: ERROR - no valid key available!\n");
 #endif
   }
 
@@ -501,7 +501,7 @@ sock_read(void *ctx, unsigned char *buf, size_t len)
     {
       char dbg[64];
       msnprintf(dbg, sizeof(dbg), "BearSSL sock_read: got %d bytes\n", (int)rlen);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     return (int)rlen;
@@ -510,7 +510,7 @@ sock_read(void *ctx, unsigned char *buf, size_t len)
   if(rlen == 0) {
     /* Connection closed by peer */
 #ifdef BEARSSL_VERBOSE_DEBUG
-    debug_log("BearSSL sock_read: connection closed by peer\n");
+    debug_print("BearSSL sock_read: connection closed by peer\n");
 #endif
     return -1;
   }
@@ -522,7 +522,7 @@ sock_read(void *ctx, unsigned char *buf, size_t len)
     {
       char dbg[64];
       msnprintf(dbg, sizeof(dbg), "BearSSL sock_read: recv error %d\n", err);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
 
@@ -558,7 +558,7 @@ sock_write(void *ctx, const unsigned char *buf, size_t len)
     {
       char dbg[64];
       msnprintf(dbg, sizeof(dbg), "BearSSL sock_write: sent %d bytes\n", (int)wlen);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     return (int)wlen;
@@ -576,7 +576,7 @@ sock_write(void *ctx, const unsigned char *buf, size_t len)
     {
       char dbg[64];
       msnprintf(dbg, sizeof(dbg), "BearSSL sock_write: send error %d\n", err);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
 
@@ -724,7 +724,7 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
     msnprintf(dbg, sizeof(dbg),
       "BearSSL step1: Using pre-allocated backend at %p, size=%u bytes\n",
       (void*)BACKEND, (unsigned)sizeof(struct ssl_backend_data));
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -753,7 +753,7 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
      * but accepts all certificates. This leverages BearSSL's proven certificate
      * parsing code while bypassing the trust validation.
      */
-    debug_log("BearSSL: Certificate verification DISABLED - using noanchor validator\n");
+    debug_print("BearSSL: Certificate verification DISABLED - using noanchor validator\n");
     BACKEND->using_noanchor = 1;
 
 #ifdef _XBOX
@@ -762,23 +762,23 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
       msnprintf(dbg, sizeof(dbg),
         "BearSSL: BACKEND=%p, sizeof(ssl_backend_data)=%u\n",
         (void*)BACKEND, (unsigned)sizeof(struct ssl_backend_data));
-      debug_log(dbg);
+      debug_print(dbg);
       msnprintf(dbg, sizeof(dbg),
         "BearSSL: sizeof(br_ssl_client_context)=%u\n",
         (unsigned)sizeof(br_ssl_client_context));
-      debug_log(dbg);
+      debug_print(dbg);
       msnprintf(dbg, sizeof(dbg),
         "BearSSL: sizeof(br_x509_minimal_context)=%u\n",
         (unsigned)sizeof(br_x509_minimal_context));
-      debug_log(dbg);
+      debug_print(dbg);
       msnprintf(dbg, sizeof(dbg),
         "BearSSL: &BACKEND->sc=%p, &BACKEND->xc_minimal=%p\n",
         (void*)&BACKEND->sc, (void*)&BACKEND->xc_minimal);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
 
-    debug_log("BearSSL: Calling br_ssl_client_init_full...\n");
+    debug_print("BearSSL: Calling br_ssl_client_init_full...\n");
 
     /*
      * Initialize the SSL client with the minimal X509 validator.
@@ -787,7 +787,7 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
      */
     br_ssl_client_init_full(&BACKEND->sc, &BACKEND->xc_minimal, NULL, 0);
 
-    debug_log("BearSSL: br_ssl_client_init_full done\n");
+    debug_print("BearSSL: br_ssl_client_init_full done\n");
 
 #ifdef _XBOX
     {
@@ -796,7 +796,7 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
         "BearSSL: xc_minimal at %p, xc_minimal.vtable = %p\n",
         (void*)&BACKEND->xc_minimal,
         (void*)BACKEND->xc_minimal.vtable);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
 
@@ -804,7 +804,7 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
     BACKEND->xc_noanchor.vtable = &br_x509_noanchor_vtable;
     BACKEND->xc_noanchor.minimal = &BACKEND->xc_minimal;
 
-    debug_log("BearSSL: Setting X509 engine to noanchor wrapper...\n");
+    debug_print("BearSSL: Setting X509 engine to noanchor wrapper...\n");
 
 #ifdef _XBOX
     {
@@ -814,13 +814,13 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
         (void*)&BACKEND->xc_noanchor,
         (void*)BACKEND->xc_noanchor.vtable,
         (void*)BACKEND->xc_noanchor.minimal);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
 
     /* Replace the X509 engine with our noanchor validator wrapper */
     br_ssl_engine_set_x509(&BACKEND->sc.eng, &BACKEND->xc_noanchor.vtable);
-    debug_log("BearSSL: Noanchor X509 validator installed\n");
+    debug_print("BearSSL: Noanchor X509 validator installed\n");
   }
   else {
 #if BEARSSL_XBOX_INTEGRATION
@@ -873,7 +873,7 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
 #endif
   }
 
-  debug_log("BearSSL: Setting protocol versions...\n");
+  debug_print("BearSSL: Setting protocol versions...\n");
 
   /* Set protocol versions based on CURLOPT_SSLVERSION */
   {
@@ -911,12 +911,12 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
 
     br_ssl_engine_set_versions(&BACKEND->sc.eng, min_ver, max_ver);
   }
-  debug_log("BearSSL: Protocol versions set\n");
+  debug_print("BearSSL: Protocol versions set\n");
 
   /* Use secure cipher suites only */
   br_ssl_engine_set_suites(&BACKEND->sc.eng,
                            bearssl_secure_suites, BEARSSL_SECURE_SUITES_COUNT);
-  debug_log("BearSSL: Cipher suites set\n");
+  debug_print("BearSSL: Cipher suites set\n");
 
   /*
    * Set ALPN (Application-Layer Protocol Negotiation) protocols.
@@ -928,12 +928,12 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
   br_ssl_engine_set_protocol_names(&BACKEND->sc.eng,
                                    bearssl_alpn_protocols,
                                    BEARSSL_ALPN_PROTOCOLS_COUNT);
-  debug_log("BearSSL: ALPN protocols set (http/1.1)\n");
+  debug_print("BearSSL: ALPN protocols set (http/1.1)\n");
 
   /* Set I/O buffer */
   br_ssl_engine_set_buffer(&BACKEND->sc.eng, BACKEND->iobuf,
                            sizeof(BACKEND->iobuf), 1);
-  debug_log("BearSSL: I/O buffer set\n");
+  debug_print("BearSSL: I/O buffer set\n");
 
 #if BEARSSL_XBOX_INTEGRATION
   /* Try to resume previous session */
@@ -945,12 +945,12 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
   }
 #endif
 
-  debug_log("BearSSL: Calling br_ssl_client_reset...\n");
+  debug_print("BearSSL: Calling br_ssl_client_reset...\n");
 
   /* Reset the client context for the new connection */
   br_ssl_client_reset(&BACKEND->sc, hostname, session_resume);
 
-  debug_log("BearSSL: br_ssl_client_reset done\n");
+  debug_print("BearSSL: br_ssl_client_reset done\n");
 
 #ifdef _XBOX
   {
@@ -958,28 +958,28 @@ bearssl_connect_step1(struct connectdata *conn, int sockindex)
     msnprintf(dbg, sizeof(dbg),
       "BearSSL step1: hostname=%s, socket=%d, sockindex=%d\n",
       hostname, (int)conn->sock[sockindex], sockindex);
-    debug_log(dbg);
+    debug_print(dbg);
 
     /* Verify socket is valid */
     if(conn->sock[sockindex] == CURL_SOCKET_BAD) {
-      debug_log("BearSSL step1: ERROR - socket is INVALID!\n");
+      debug_print("BearSSL step1: ERROR - socket is INVALID!\n");
     }
   }
 #endif
 
-  debug_log("BearSSL: Calling br_sslio_init...\n");
+  debug_print("BearSSL: Calling br_sslio_init...\n");
 
   /* Initialize the I/O wrapper */
   br_sslio_init(&BACKEND->ioc, &BACKEND->sc.eng,
                 sock_read, &conn->sock[sockindex],
                 sock_write, &conn->sock[sockindex]);
 
-  debug_log("BearSSL: br_sslio_init done\n");
+  debug_print("BearSSL: br_sslio_init done\n");
 
   /* Note: BACKEND->active is set in step3 after handshake completes */
   connssl->connecting_state = ssl_connect_2;
 
-  debug_log("BearSSL step1: complete, moving to step2\n");
+  debug_print("BearSSL step1: complete, moving to step2\n");
   return CURLE_OK;
 }
 
@@ -1005,7 +1005,7 @@ bearssl_connect_step2(struct connectdata *conn, int sockindex)
       (state & BR_SSL_SENDREC) ? 1 : 0,
       (state & BR_SSL_RECVREC) ? 1 : 0,
       (state & BR_SSL_SENDAPP) ? 1 : 0);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1016,7 +1016,7 @@ bearssl_connect_step2(struct connectdata *conn, int sockindex)
     {
       char dbg[128];
       msnprintf(dbg, sizeof(dbg), "BearSSL step2: engine error %d\n", err);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     failf(data, "BearSSL: %s (error %d)", bearssl_error_string(err), err);
@@ -1034,13 +1034,13 @@ bearssl_connect_step2(struct connectdata *conn, int sockindex)
   if(state & BR_SSL_SENDREC) {
     /* Need to send data */
     int ret;
-    debug_log("BearSSL step2: flushing send buffer...\n");
+    debug_print("BearSSL step2: flushing send buffer...\n");
     ret = br_sslio_flush(&BACKEND->ioc);
 #ifdef _XBOX
     {
       char dbg[128];
       msnprintf(dbg, sizeof(dbg), "BearSSL step2: flush returned %d\n", ret);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     if(ret < 0) {
@@ -1049,7 +1049,7 @@ bearssl_connect_step2(struct connectdata *conn, int sockindex)
       {
         char dbg[128];
         msnprintf(dbg, sizeof(dbg), "BearSSL step2: flush error, engine err=%d\n", err);
-        debug_log(dbg);
+        debug_print(dbg);
       }
 #endif
       if(err != BR_ERR_OK) {
@@ -1064,13 +1064,13 @@ bearssl_connect_step2(struct connectdata *conn, int sockindex)
     /* Need to receive data - handled by sslio layer */
     unsigned char tmp[1];
     int ret;
-    debug_log("BearSSL step2: attempting to receive...\n");
+    debug_print("BearSSL step2: attempting to receive...\n");
     ret = br_sslio_read(&BACKEND->ioc, tmp, 0);
 #ifdef _XBOX
     {
       char dbg[128];
       msnprintf(dbg, sizeof(dbg), "BearSSL step2: read returned %d\n", ret);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     if(ret < 0) {
@@ -1079,7 +1079,7 @@ bearssl_connect_step2(struct connectdata *conn, int sockindex)
       {
         char dbg[128];
         msnprintf(dbg, sizeof(dbg), "BearSSL step2: read error, engine err=%d\n", err);
-        debug_log(dbg);
+        debug_print(dbg);
       }
 #endif
       if(err != BR_ERR_OK && err != BR_ERR_IO) {
@@ -1130,14 +1130,14 @@ bearssl_connect_step3(struct connectdata *conn, int sockindex)
       {
         char dbg[128];
         msnprintf(dbg, sizeof(dbg), "BearSSL: ALPN selected: %s\n", alpn_protocol);
-        debug_log(dbg);
+        debug_print(dbg);
       }
 #endif
     }
     else {
       infof(data, "BearSSL: ALPN not negotiated (server may not support it)\n");
 #ifdef _XBOX
-      debug_log("BearSSL: ALPN not negotiated by server\n");
+      debug_print("BearSSL: ALPN not negotiated by server\n");
 #endif
     }
   }
@@ -1158,7 +1158,7 @@ bearssl_connect_step3(struct connectdata *conn, int sockindex)
     char dbg[128];
     msnprintf(dbg, sizeof(dbg), "BearSSL: %s connection using %s\n",
               BACKEND->session_resumed ? "Resumed" : "New", version_str);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1201,13 +1201,13 @@ bearssl_connect_step3(struct connectdata *conn, int sockindex)
         BACKEND->leaf_cert_hash[26], BACKEND->leaf_cert_hash[27],
         BACKEND->leaf_cert_hash[28], BACKEND->leaf_cert_hash[29],
         BACKEND->leaf_cert_hash[30], BACKEND->leaf_cert_hash[31]);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
   }
   else if(BACKEND->session_resumed) {
 #ifdef _XBOX
-    debug_log("BearSSL step3: Leaf cert hash not available (resumed session)\n");
+    debug_print("BearSSL step3: Leaf cert hash not available (resumed session)\n");
 #endif
   }
 #endif
@@ -1227,7 +1227,7 @@ bearssl_connect_step3(struct connectdata *conn, int sockindex)
   conn->send[sockindex] = bearssl_send;
 
 #ifdef _XBOX
-  debug_log("BearSSL: Registered send/recv handlers with libcurl\n");
+  debug_print("BearSSL: Registered send/recv handlers with libcurl\n");
 #endif
 
   BACKEND->active = 1;
@@ -1343,7 +1343,7 @@ static void Curl_bearssl_close(struct connectdata *conn, int sockindex)
     msnprintf(dbg, sizeof(dbg),
       "BearSSL close: sockindex=%d, state=%d, backend=%p\n",
       sockindex, (int)connssl->state, (void*)BACKEND);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1382,7 +1382,7 @@ static void Curl_bearssl_close(struct connectdata *conn, int sockindex)
         msnprintf(dbg, sizeof(dbg),
           "BearSSL close: io_error=%d, err=%d, state=0x%x\n",
           BACKEND->io_error, err, state);
-        debug_log(dbg);
+        debug_print(dbg);
       }
 #endif
 
@@ -1404,7 +1404,7 @@ static void Curl_bearssl_close(struct connectdata *conn, int sockindex)
       msnprintf(dbg, sizeof(dbg),
         "BearSSL: Clearing backend at %p (NOT freeing - vtls manages memory)\n",
         (void*)BACKEND);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
 
@@ -1434,7 +1434,7 @@ static int Curl_bearssl_shutdown(struct connectdata *conn, int sockindex)
     msnprintf(dbg, sizeof(dbg),
       "BearSSL shutdown: sockindex=%d, state=%d, backend=%p\n",
       sockindex, (int)connssl->state, (void*)BACKEND);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1472,7 +1472,7 @@ static ssize_t bearssl_send(struct connectdata *conn, int sockindex,
 
   /* Defensive check - BACKEND must be valid */
   if(!BACKEND || !BACKEND->active) {
-    debug_log("bearssl_send: BACKEND invalid, returning error\n");
+    debug_print("bearssl_send: BACKEND invalid, returning error\n");
     *curlcode = CURLE_SEND_ERROR;
     return -1;
   }
@@ -1482,7 +1482,7 @@ static ssize_t bearssl_send(struct connectdata *conn, int sockindex,
     char dbg[128];
     msnprintf(dbg, sizeof(dbg), "BearSSL send: len=%u, active=%d\n",
               (unsigned)len, BACKEND->active);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1495,7 +1495,7 @@ static ssize_t bearssl_send(struct connectdata *conn, int sockindex,
     unsigned state = br_ssl_engine_current_state(&BACKEND->sc.eng);
     msnprintf(dbg, sizeof(dbg), "BearSSL send: write returned %d, err=%d, state=0x%x\n",
               ret, err, state);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1519,7 +1519,7 @@ static ssize_t bearssl_send(struct connectdata *conn, int sockindex,
   {
     char dbg[128];
     msnprintf(dbg, sizeof(dbg), "BearSSL send: flush returned %d\n", flush_ret);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1538,7 +1538,7 @@ static ssize_t bearssl_recv(struct connectdata *conn, int sockindex,
 
   /* Defensive check - BACKEND must be valid */
   if(!BACKEND || !BACKEND->active) {
-    debug_log("bearssl_recv: BACKEND invalid, returning error\n");
+    debug_print("bearssl_recv: BACKEND invalid, returning error\n");
     *curlcode = CURLE_RECV_ERROR;
     return -1;
   }
@@ -1548,7 +1548,7 @@ static ssize_t bearssl_recv(struct connectdata *conn, int sockindex,
     char dbg[128];
     msnprintf(dbg, sizeof(dbg), "BearSSL recv: buffersize=%u, active=%d\n",
               (unsigned)buffersize, BACKEND->active);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1561,7 +1561,7 @@ static ssize_t bearssl_recv(struct connectdata *conn, int sockindex,
     unsigned state = br_ssl_engine_current_state(&BACKEND->sc.eng);
     msnprintf(dbg, sizeof(dbg), "BearSSL recv: read returned %d, err=%d, state=0x%x\n",
               ret, err, state);
-    debug_log(dbg);
+    debug_print(dbg);
   }
 #endif
 
@@ -1573,7 +1573,7 @@ static ssize_t bearssl_recv(struct connectdata *conn, int sockindex,
     {
       char dbg[128];
       msnprintf(dbg, sizeof(dbg), "BearSSL recv: ERROR - setting io_error=1, err=%d\n", err);
-      debug_log(dbg);
+      debug_print(dbg);
     }
 #endif
     if(err == BR_ERR_OK || err == BR_ERR_IO) {
